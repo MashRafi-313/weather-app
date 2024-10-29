@@ -32,32 +32,32 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: loadDataFromSharedPreferences(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.hasError) {
-          return Center(
-            child: Text(
-              'Error:${snapshot.error}',
-            ),
-          );
-        } else if (snapshot.hasData) {
-          WeatherDataInfo? weatherDataInfo = snapshot.data!;
-          return Scaffold(
-            body: AppBody(weatherDataInfo: weatherDataInfo),
-          );
-        } else {
-          return const Center(
-            child: Text(
-              "No weather data available",
-            ),
-          );
-        }
-      },
+    return Scaffold(
+      body: FutureBuilder(
+        future: loadDataFromSharedPreferences(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                'Error:${snapshot.error}',
+              ),
+            );
+          } else if (snapshot.hasData) {
+            WeatherDataInfo? weatherDataInfo = snapshot.data!;
+            return AppBody(weatherDataInfo: weatherDataInfo);
+          } else {
+            return const Center(
+              child: Text(
+                "No weather data available",
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }

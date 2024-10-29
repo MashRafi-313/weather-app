@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:warm_cloud/body/app_body_components/location_name.dart';
 import 'package:warm_cloud/model/weather_data_info.dart';
-
 import '../model/weather_data.dart';
 import 'app_body_components/SearchBox.dart';
 import 'app_body_components/SunStatus.dart';
@@ -31,6 +30,12 @@ class _AppBodyState extends State<AppBody> {
     currentIndex = widget.defaultIndex!;
     weatherData = widget.weatherDataInfo!.weatherData![currentIndex];
   }
+ void updateIndex(int index){
+    setState(() {
+      currentIndex = index;
+      weatherData = widget.weatherDataInfo!.weatherData![currentIndex];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +45,10 @@ class _AppBodyState extends State<AppBody> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            SearchBox(),
+            SearchBox(weatherDataInfo: widget.weatherDataInfo, updateIndex : updateIndex),
             const SizedBox(
               height: 5,
             ),
@@ -56,9 +61,11 @@ class _AppBodyState extends State<AppBody> {
               height: 5,
             ),
             Temperature(temperature: weatherData.temperature),
+            if(weatherData.warnings != null)
             const SizedBox(
               height: 5,
             ),
+            if(weatherData.warnings != null)
             WarningStatus(
               rain_percentage: weatherData.warnings!.rainPercentage,
               expected_time: weatherData.warnings!.expectedTime,
@@ -73,12 +80,12 @@ class _AppBodyState extends State<AppBody> {
                 rain_percentage: weatherData.rainPercentage,
                 air_quality: weatherData.airQuality),
             const SizedBox(
-              height: 5,
+              height: 10,
             ),
-            // SunStatus(
-            //   sunrise: weatherData.sunrise,
-            //   sunset: weatherData.sunset,
-            // ),
+            SunStatus(
+              sunrise: weatherData.sunrise,
+              sunset: weatherData.sunset,
+            ),
             const SizedBox(
               height: 10,
             )
