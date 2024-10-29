@@ -13,7 +13,7 @@ class Verticaldivider extends StatelessWidget{
             (index) {
           return Expanded(
             child: VerticalDivider(
-              color: AppColor.silver, // Customize color if needed
+              color: AppColor.silver(Theme.of(context).brightness), // Customize color if needed
               thickness: 0.5,
               indent: 1,
               // Customize thickness if needed

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:warm_cloud/app_color/app_color.dart';
 import 'package:warm_cloud/body/app_body_components/warning_status_components/warning_image.dart';
 
@@ -31,7 +32,7 @@ class WarningInfo extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: AppColor.gold
+                          color: AppColor.gold(Theme.of(context).brightness)
                       )
                   ),
                 ]

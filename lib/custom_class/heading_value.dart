@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:warm_cloud/app_color/app_color.dart';
 import 'package:warm_cloud/body/app_body.dart';
 
@@ -15,16 +16,17 @@ class HeadingValue extends StatelessWidget {
         Text(
           heading!,
           style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: AppColor.silver),
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: AppColor.silver(Theme.of(context).brightness),
+          ),
         ),
         Text(
           value!,
           style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w500,
-              color: AppColor.dustyGray),
+              color: AppColor.dustyGray(Theme.of(context).brightness),),
         ),
       ],
     );

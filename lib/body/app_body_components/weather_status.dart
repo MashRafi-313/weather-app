@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:warm_cloud/app_color/app_color.dart';
 import 'package:warm_cloud/custom_class/heading_value.dart';
 import 'package:intl/intl.dart';
@@ -22,7 +23,9 @@ class WeatherStatus extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: AppColor.hintOfRed),
+        borderRadius: BorderRadius.circular(5),
+        color: AppColor.hintOfRed(Theme.of(context).brightness),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

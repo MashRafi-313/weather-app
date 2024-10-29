@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../../app_color/app_color.dart';
 
@@ -7,11 +8,12 @@ class DayLight extends StatelessWidget {
   final int? hours;
   final int? minutes;
 
-  const DayLight(
-      {super.key,
-      required this.text,
-      required this.hours,
-      required this.minutes});
+  const DayLight({
+    super.key,
+    required this.text,
+    required this.hours,
+    required this.minutes,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +23,18 @@ class DayLight extends StatelessWidget {
           TextSpan(
             text: text,
             style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w400,
-                color: AppColor.dustyGray),
+              fontSize: 10,
+              fontWeight: FontWeight.w400,
+              color: AppColor.dustyGray(Theme.of(context).brightness),
+            ),
           ),
           TextSpan(
             text: "${hours}H ${minutes}M",
             style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-                color: AppColor.mineShaft),
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: AppColor.mineShaft(Theme.of(context).brightness),
+            ),
           )
         ],
       ),

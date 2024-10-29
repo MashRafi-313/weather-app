@@ -21,14 +21,14 @@ class HeadingValueDivider extends StatelessWidget {
           style: TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.w400,
-              color: AppColor.silver),
+              color: AppColor.silver(Theme.of(context).brightness)),
         ),
         Text(
           value!,
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            color: AppColor.dustyGray,
+            color: AppColor.dustyGray(Theme.of(context).brightness),
           ),
         ),
         //VerticalDivider()

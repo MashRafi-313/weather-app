@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:warm_cloud/app_color/app_color.dart';
 import 'package:warm_cloud/body/app_body_components/warning_status_components/warning_info.dart';
 import 'package:warm_cloud/body/app_body_components/warning_status_components/warning_title.dart';
@@ -23,8 +24,8 @@ class WarningStatus extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 20.0),
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: AppColor.hintOfRed,
+        borderRadius: BorderRadius.circular(5),
+        color: AppColor.hintOfRed(Theme.of(context).brightness),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

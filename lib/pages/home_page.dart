@@ -5,7 +5,10 @@ import 'package:warm_cloud/model/weather_data_info.dart';
 import '../body/app_body.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final Function() toggleMode;
+  const HomePage({
+    super.key, required this.toggleMode,
+  });
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -48,7 +51,10 @@ class _HomePageState extends State<HomePage> {
             );
           } else if (snapshot.hasData) {
             WeatherDataInfo? weatherDataInfo = snapshot.data!;
-            return AppBody(weatherDataInfo: weatherDataInfo);
+            return AppBody(
+              weatherDataInfo: weatherDataInfo,
+              toggleMode: widget.toggleMode
+            );
           } else {
             return const Center(
               child: Text(

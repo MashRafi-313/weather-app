@@ -22,20 +22,20 @@ class SearchBox extends StatelessWidget {
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20.0),
-        padding: const EdgeInsets.all(3),
+        padding: const EdgeInsets.all(0),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: AppColor.hintOfRed),
+            borderRadius: BorderRadius.circular(5), color: AppColor.hintOfRed(Theme.of(context).brightness)),
         child: ListTile(
           title: Text(
             "Search Location",
             style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
-                color: AppColor.silver),
+                color: AppColor.silver(Theme.of(context).brightness),),
           ),
           trailing: Icon(
             Icons.search,
-            color: AppColor.silver,
+            color: AppColor.silver(Theme.of(context).brightness),
           ),
         ),
       ),

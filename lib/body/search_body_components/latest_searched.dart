@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:warm_cloud/app_color/app_color.dart';
 
 class LatestSearched extends StatelessWidget{
@@ -12,15 +13,15 @@ class LatestSearched extends StatelessWidget{
       width: 60,
       margin: const EdgeInsets.only(right:10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: AppColor.hintOfRed,
+        borderRadius: BorderRadius.circular(5),
+        color: AppColor.hintOfRed(Theme.of(context).brightness,),
       ),
       child: Center(
         child: Text(location,
         style: TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.w400,
-          color: AppColor.mineShaft
+          color: AppColor.mineShaft(Theme.of(context).brightness),
         ),
         ),
       ),

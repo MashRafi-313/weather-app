@@ -22,7 +22,7 @@ class _SearchBodyState extends State<SearchBody> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
   WeatherDataInfo? weatherDataInfo;
-   List<String> latestLocations=[];
+  List<String> latestLocations = [];
   List<WeatherData>? weatherData = [];
   List<WeatherData>? filteredWeatherData = [];
 
@@ -44,7 +44,6 @@ class _SearchBodyState extends State<SearchBody> {
     setState(() {
       latestLocations = prefs.getStringList('latestLocations') ?? [];
     });
-
   }
 
   void filterSearchResults(String query) {
@@ -80,37 +79,39 @@ class _SearchBodyState extends State<SearchBody> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+            margin: const EdgeInsets.only(
+                left: 20.0, right: 20, top: 20,bottom: 2),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: AppColor.hintOfRed),
+                borderRadius: BorderRadius.circular(5),
+                color: AppColor.hintOfRed(Theme.of(context).brightness)),
             child: TextField(
               controller: _searchController,
               focusNode: _searchFocusNode,
               decoration: InputDecoration(
                   hintText: "Search Location",
                   hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: AppColor.silver),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: AppColor.silver(Theme.of(context).brightness),
+                  ),
                   suffixIcon: Icon(
                     Icons.search,
-                    color: AppColor.porpoise,
+                    color: AppColor.porpoise(Theme.of(context).brightness),
                   ),
                   border: InputBorder.none),
             ),
           ),
           Container(
             height: 30,
-            margin: EdgeInsets.symmetric(horizontal: 20),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: latestLocations.length,
-                itemBuilder: (context, index) {
-                  return LatestSearched(location: latestLocations[index]);
-                },
-              ),
+              scrollDirection: Axis.horizontal,
+              itemCount: latestLocations.length,
+              itemBuilder: (context, index) {
+                return LatestSearched(location: latestLocations[index]);
+              },
+            ),
           ),
           Expanded(
             child: ListView.builder(

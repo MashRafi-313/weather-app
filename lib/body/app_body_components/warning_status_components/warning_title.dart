@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:warm_cloud/app_color/app_color.dart';
 
 class WarningTitle extends StatelessWidget {
@@ -12,7 +13,7 @@ class WarningTitle extends StatelessWidget {
       style: TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.w400,
-        color: AppColor.gold,
+        color: AppColor.gold(Theme.of(context).brightness),
       ),
     );
   }

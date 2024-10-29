@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../app_color/app_color.dart';
 
@@ -16,13 +17,15 @@ class LocationName extends StatelessWidget {
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w600,
-              color: AppColor.mineShaft,
+              color: AppColor.mineShaft(Theme.of(context).brightness),
             textBaseline:  TextBaseline.alphabetic
           ),
         ),
         TextSpan(text: "  "),
         WidgetSpan(
-            child: Image.asset('assets/images/locationIndicator.png'),
+            child: Image.asset('assets/images/locationIndicator.png',
+              color: AppColor.mineShaft(Theme.of(context).brightness),
+            ),
             // style: const TextStyle(fontSize: 21, textBaseline: TextBaseline.alphabetic)
             baseline: TextBaseline.alphabetic,
             alignment: PlaceholderAlignment.baseline,

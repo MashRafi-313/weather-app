@@ -7,12 +7,13 @@ class Heading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Text(
+    return Text(
       "SUNRISE & SUNSET",
       style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-          color: AppColor.silver),
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+        color: AppColor.silver(Theme.of(context).brightness),
+      ),
     );
   }
 }
