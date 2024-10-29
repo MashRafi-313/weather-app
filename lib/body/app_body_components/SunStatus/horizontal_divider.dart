@@ -14,6 +14,7 @@ class HorizontalDivider extends StatelessWidget{
             (index) {
           return Expanded(
             child: Divider(
+              height: 0,
               color: AppColor.silver, // Customize color if needed
               thickness: 0.5,
               indent: 1.5, // Customize thickness if needed

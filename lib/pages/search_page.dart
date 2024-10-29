@@ -12,7 +12,7 @@ class SearchPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:SearchBody(weatherDataInfo: weatherDataInfo, updateIndex: updateIndex),
+      body:SearchBody(weatherDataInfo: weatherDataInfo, updateIndex: updateIndex)
     );
   }
 

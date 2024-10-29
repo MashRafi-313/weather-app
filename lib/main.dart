@@ -17,7 +17,8 @@ class WeatherApp extends StatelessWidget{
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-         scaffoldBackgroundColor: AppColor.white
+         scaffoldBackgroundColor: AppColor.white,
+          fontFamily: 'Poppins'
         ),
       home:const HomePage()
     );

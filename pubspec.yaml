@@ -66,6 +66,16 @@ flutter:
     - assets/sample.json
     - assets/images/locationIndicator.png
     - assets/images/warningHazard.png
+    - assets/fonts/poppins/Poppins-Bold.ttf
+    - assets/fonts/poppins/Poppins-Light.ttf
+    - assets/fonts/poppins/Poppins-Black.ttf
+    - assets/fonts/poppins/Poppins-ExtraBold.ttf
+    - assets/fonts/poppins/Poppins-ExtraLight.ttf
+    - assets/fonts/poppins/Poppins-Medium.ttf
+    - assets/fonts/poppins/Poppins-Regular.ttf
+    - assets/fonts/poppins/Poppins-SemiBold.ttf
+    - assets/fonts/poppins/Poppins-Thin.ttf
+    - assets/fonts/poppins/Poppins-Italic.ttf
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

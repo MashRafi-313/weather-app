@@ -5,20 +5,20 @@ class SuggestedList extends StatelessWidget {
   final String? location;
   final String? temperature;
   final String? weatherEmoji;
-  String? weatherTitle;
+  String? warningTitle;
 
   SuggestedList(
       {super.key,
       required this.location,
       required this.temperature,
       required this.weatherEmoji,
-      required this.weatherTitle});
+      required this.warningTitle});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20.0,vertical:2),
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: AppColor.hintOfRed
@@ -45,7 +45,7 @@ class SuggestedList extends StatelessWidget {
                     color: AppColor.mineShaft),
               ),
               const SizedBox(
-                width: 60,
+                width: 40,
               ),
               Text(weatherEmoji!,
                   style: const TextStyle(
@@ -53,7 +53,7 @@ class SuggestedList extends StatelessWidget {
                   ))
             ],
           ),
-          if(weatherTitle != null)
+          if(warningTitle != null)
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -71,12 +71,12 @@ class SuggestedList extends StatelessWidget {
                 ]),
               ),
               const SizedBox(
-                width: 60,
+                width: 80,
               ),
               Expanded(
                 child: Center(
                   child: Text(
-                    weatherTitle!,
+                    warningTitle!,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(

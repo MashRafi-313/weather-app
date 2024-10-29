@@ -17,12 +17,16 @@ class LocationName extends StatelessWidget {
             fontSize: 30,
             fontWeight: FontWeight.w600,
               color: AppColor.mineShaft,
+            textBaseline:  TextBaseline.alphabetic
           ),
         ),
         TextSpan(text: "  "),
         WidgetSpan(
             child: Image.asset('assets/images/locationIndicator.png'),
-            style: const TextStyle(fontSize: 21))
+            // style: const TextStyle(fontSize: 21, textBaseline: TextBaseline.alphabetic)
+            baseline: TextBaseline.alphabetic,
+            alignment: PlaceholderAlignment.baseline,
+            )
       ]),
     );
   }

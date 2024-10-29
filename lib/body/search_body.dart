@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warm_cloud/app_color/app_color.dart';
+import 'package:warm_cloud/body/search_body_components/latest_searched.dart';
 import 'package:warm_cloud/body/search_body_components/suggested_list.dart';
 import 'package:warm_cloud/model/weather_data.dart';
 import 'package:warm_cloud/model/weather_data_info.dart';
@@ -8,7 +10,9 @@ import 'package:warm_cloud/model/weather_data_info.dart';
 class SearchBody extends StatefulWidget {
   final WeatherDataInfo? weatherDataInfo;
   final void Function(int) updateIndex;
-  const SearchBody({super.key, required this.weatherDataInfo, required this.updateIndex});
+
+  SearchBody(
+      {super.key, required this.weatherDataInfo, required this.updateIndex});
 
   @override
   State<SearchBody> createState() => _SearchBodyState();
@@ -16,7 +20,9 @@ class SearchBody extends StatefulWidget {
 
 class _SearchBodyState extends State<SearchBody> {
   final TextEditingController _searchController = TextEditingController();
-  WeatherDataInfo? weatherDataInfo ;
+  final FocusNode _searchFocusNode = FocusNode();
+  WeatherDataInfo? weatherDataInfo;
+   List<String> latestLocations=[];
   List<WeatherData>? weatherData = [];
   List<WeatherData>? filteredWeatherData = [];
 
@@ -29,6 +35,16 @@ class _SearchBodyState extends State<SearchBody> {
     _searchController.addListener(() {
       filterSearchResults(_searchController.text);
     });
+    _searchFocusNode.requestFocus();
+    _loadLatestLocations();
+  }
+
+  void _loadLatestLocations() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      latestLocations = prefs.getStringList('latestLocations') ?? [];
+    });
+
   }
 
   void filterSearchResults(String query) {
@@ -36,25 +52,25 @@ class _SearchBodyState extends State<SearchBody> {
       filteredWeatherData = query.isEmpty
           ? weatherData
           : weatherData!
-          .where((weather) =>
-          weather.location!.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+              .where((weather) =>
+                  weather.location!.toLowerCase().contains(query.toLowerCase()))
+              .toList();
     });
   }
 
   void dispose() {
     _searchController.dispose();
+    _searchFocusNode.dispose();
     super.dispose();
   }
- int  findIndex(String? location) {
-    late int index;
-    for(int i = 0; i < weatherData!.length ; i++) {
-      if(weatherData![i].location == location){
-        index = i;
-        break;
+
+  int findIndex(String? location) {
+    for (int i = 0; i < weatherData!.length; i++) {
+      if (weatherData![i].location == location) {
+        return i;
       }
     }
-    return index;
+    return -1;
   }
 
   @override
@@ -71,6 +87,7 @@ class _SearchBodyState extends State<SearchBody> {
                 color: AppColor.hintOfRed),
             child: TextField(
               controller: _searchController,
+              focusNode: _searchFocusNode,
               decoration: InputDecoration(
                   hintText: "Search Location",
                   hintStyle: TextStyle(
@@ -84,6 +101,17 @@ class _SearchBodyState extends State<SearchBody> {
                   border: InputBorder.none),
             ),
           ),
+          Container(
+            height: 30,
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: latestLocations.length,
+                itemBuilder: (context, index) {
+                  return LatestSearched(location: latestLocations[index]);
+                },
+              ),
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: filteredWeatherData!.length,
@@ -91,11 +119,30 @@ class _SearchBodyState extends State<SearchBody> {
                 final weather = filteredWeatherData![index];
                 bool isWarning = weather.warnings != null;
                 return GestureDetector(
-                  onTap: (){
+                  onTap: () async {
                     int index = findIndex(weather.location);
                     widget.updateIndex(index);
-                    Navigator.pop(context);
 
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    List<String> updateLocations =
+                        prefs.getStringList('latestLocations') ?? [];
+                    if (weather.location != null &&
+                        (updateLocations.isEmpty ||
+                            updateLocations.first != weather.location)) {
+                      updateLocations.insert(0, weather.location!);
+                      if (updateLocations.length > 3) {
+                        updateLocations = updateLocations.sublist(0, 3);
+                      }
+                      await prefs.setStringList(
+                          'latestLocations', updateLocations);
+                      setState(() {
+                        latestLocations = updateLocations;
+                      });
+                    }
+
+                    _searchFocusNode.unfocus();
+                    Navigator.pop(context);
                   },
                   child: SuggestedList(
                       location: weather.location,
@@ -103,7 +150,7 @@ class _SearchBodyState extends State<SearchBody> {
                       weatherEmoji: isWarning
                           ? weather.warnings!.weatherEmoji
                           : weather.weatherEmoji,
-                      weatherTitle:
+                      warningTitle:
                           isWarning ? weather.warnings!.warningTitle : null),
                 );
               },
@@ -113,6 +160,4 @@ class _SearchBodyState extends State<SearchBody> {
       ),
     );
   }
-
-
 }
