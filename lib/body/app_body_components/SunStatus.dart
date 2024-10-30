@@ -18,35 +18,35 @@ class SunStatus extends StatelessWidget {
     required this.sunset,
   });
 
-  Duration _findTimeDifference(String? sunriseTime, String? sunsetTime) {
-    DateTime parsedSunrise = DateFormat.Hm().parse(
-      sunriseTime!.split(" ")[0],
+  Duration _findTimeDifference(String? timeA, String? timeB) {
+    DateTime parsedTimeA = DateFormat.Hm().parse(
+      timeA!.split(" ")[0],
     );
-    DateTime parsedSunset = DateFormat.Hm().parse(
-      sunsetTime!.split(" ")[0],
+    DateTime parsedTimeB = DateFormat.Hm().parse(
+      timeB!.split(" ")[0],
     );
-    parsedSunset = parsedSunset.add(
+    parsedTimeB = parsedTimeB.add(
       const Duration(hours: 12),
     );
 
     DateTime now = DateTime.now().toUtc();
-    DateTime sunRise = DateTime(
+    DateTime firstTime = DateTime(
       now.year,
       now.month,
       now.day,
-      parsedSunrise.hour,
-      parsedSunrise.minute,
+      parsedTimeA.hour,
+      parsedTimeA.minute,
     );
-    DateTime sunSet = DateTime(
+    DateTime secondTime = DateTime(
       now.year,
       now.month,
       now.day,
-      parsedSunset.hour,
-      parsedSunset.minute,
+      parsedTimeB.hour,
+      parsedTimeB.minute,
     );
 
-    Duration lengthOfDay = sunSet.difference(sunRise);
-    return lengthOfDay;
+    Duration timeDifference = secondTime.difference(firstTime);
+    return timeDifference;
   }
 
   Duration _findRemainingDayLight(String? presentTime, String? sunsetTime) {
@@ -83,16 +83,23 @@ class SunStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Duration lengthOfDay = _findTimeDifference(sunrise, sunset);
-    int lengthOfDayInHour = lengthOfDay.inHours;
+    int lengthOfDayInHours = lengthOfDay.inHours;
     int lengthOfDayInMinutes = lengthOfDay.inMinutes % 60;
+
     String? currentTime = DateFormat('HH:mm').format(
       DateTime.now(),
     );
-    Duration remainingDayLight = _findRemainingDayLight(currentTime, sunset);
-    int remainingDayLightInHours =
-        remainingDayLight.inHours > 0 ? remainingDayLight.inHours : 0;
-    int remainingDayLightInMinutes =
-        remainingDayLight.inMinutes > 0 ? remainingDayLight.inMinutes % 60 : 0;
+    Duration remainingDayLight = _findTimeDifference(currentTime, sunset);
+    int remainingDayLightInHours = remainingDayLight.inHours;
+    int remainingDayLightInMinutes = remainingDayLight.inMinutes;
+
+    if (remainingDayLightInHours <= lengthOfDayInHours) {
+      remainingDayLightInHours =
+          remainingDayLight.inHours > 0 ? remainingDayLight.inHours : 0;
+      remainingDayLightInMinutes = remainingDayLight.inMinutes > 0
+          ? remainingDayLight.inMinutes % 60
+          : 0;
+    }
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -111,24 +118,34 @@ class SunStatus extends StatelessWidget {
             height: 40,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: HeadingValueDivider(
-                  heading: "Sunrise",
-                  value: sunrise,
+              Spacer(),
+              HeadingValueDivider(
+                heading: "Sunrise",
+                value: sunrise,
+              ),
+
+              // const SizedBox(
+              //   width: 80,
+              // ),
+              Spacer(),
+              HeadingValueDivider(
+                heading: "Sunset",
+                value: sunset,
+              ),
+              SizedBox(width: 20,),
+              Padding(
+                padding: const EdgeInsets.only(bottom:1,top: 75,left: 5,right: 5),
+                child: Text(
+                  "Horizon",
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400,
+                      color: AppColor.silver(Theme.of(context).brightness)),
                 ),
-              ),
-              const SizedBox(
-                width: 60,
-              ),
-              Center(
-                child: HeadingValueDivider(
-                  heading: "Sunset",
-                  value: sunset,
-                ),
-              ),
+              )
             ],
           ),
           const HorizontalDivider(),
@@ -137,7 +154,7 @@ class SunStatus extends StatelessWidget {
           ),
           DayLight(
             text: "Length of day: ",
-            hours: lengthOfDayInHour,
+            hours: lengthOfDayInHours,
             minutes: lengthOfDayInMinutes,
           ),
           DayLight(
