@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warm_cloud/data_storage/my_shared_preferences.dart';
 import 'package:warm_cloud/model/weather_data_info.dart';
 
@@ -6,8 +9,10 @@ import '../body/app_body.dart';
 
 class HomePage extends StatefulWidget {
   final Function() toggleMode;
+
   const HomePage({
-    super.key, required this.toggleMode,
+    super.key,
+    required this.toggleMode,
   });
 
   @override
@@ -20,14 +25,19 @@ class _HomePageState extends State<HomePage> {
   Future<WeatherDataInfo> loadDataFromSharedPreferences() async {
     try {
       SharedPrefStorage prefs = SharedPrefStorage();
-      await prefs.saveJsonToSharedPreferences();
       final Map<String, dynamic>? jsonResponse =
           await prefs.getJsonObjectFromSharedPreferences();
-      if (jsonResponse != null) {
-        return WeatherDataInfo.fromJson(jsonResponse);
-      } else {
-        throw 'No JSON data found in SharedPreferences';
+
+      if(jsonResponse == null){
+         await prefs.saveJsonToSharedPreferences();
+        final Map<String,dynamic>? jsonResponse =
+         await prefs.getJsonObjectFromSharedPreferences();
+        return WeatherDataInfo.fromJson(jsonResponse!);
       }
+     else {
+        return WeatherDataInfo.fromJson(jsonResponse);
+      }
+
     } catch (e) {
       throw e.toString();
     }
@@ -52,9 +62,8 @@ class _HomePageState extends State<HomePage> {
           } else if (snapshot.hasData) {
             WeatherDataInfo? weatherDataInfo = snapshot.data!;
             return AppBody(
-              weatherDataInfo: weatherDataInfo,
-              toggleMode: widget.toggleMode
-            );
+                weatherDataInfo: weatherDataInfo,
+                toggleMode: widget.toggleMode);
           } else {
             return const Center(
               child: Text(

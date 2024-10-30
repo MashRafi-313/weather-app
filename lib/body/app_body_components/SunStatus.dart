@@ -49,37 +49,6 @@ class SunStatus extends StatelessWidget {
     return timeDifference;
   }
 
-  Duration _findRemainingDayLight(String? presentTime, String? sunsetTime) {
-    DateTime parsedCurrentTime = DateFormat.Hm().parse(
-      presentTime!,
-    );
-    DateTime parsedSunset = DateFormat.Hm().parse(
-      sunsetTime!.split(" ")[0],
-    );
-    parsedSunset = parsedSunset.add(
-      const Duration(hours: 12),
-    );
-
-    DateTime now = DateTime.now().toUtc();
-    DateTime current = DateTime(
-      now.year,
-      now.month,
-      now.day,
-      parsedCurrentTime.hour,
-      parsedCurrentTime.minute,
-    );
-    DateTime sunSet = DateTime(
-      now.year,
-      now.month,
-      now.day,
-      parsedSunset.hour,
-      parsedSunset.minute,
-    );
-
-    Duration remainingDayLight = sunSet.difference(current);
-    return remainingDayLight;
-  }
-
   @override
   Widget build(BuildContext context) {
     Duration lengthOfDay = _findTimeDifference(sunrise, sunset);
@@ -127,9 +96,6 @@ class SunStatus extends StatelessWidget {
                 value: sunrise,
               ),
 
-              // const SizedBox(
-              //   width: 80,
-              // ),
               Spacer(),
               HeadingValueDivider(
                 heading: "Sunset",
