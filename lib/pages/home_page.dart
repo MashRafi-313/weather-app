@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  get builder => null;
+
 
   Future<WeatherDataInfo> loadDataFromSharedPreferences() async {
     try {
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
+      body: FutureBuilder<WeatherDataInfo>(
         future: loadDataFromSharedPreferences(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
