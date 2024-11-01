@@ -61,7 +61,6 @@ class _AppBodyState extends State<AppBody> {
               );
             } else if (snapshot.hasData) {
               int currentIndex = snapshot.data!;
-
               return AppContent(
                 weatherDataInfo: widget.weatherDataInfo,
                 toggleMode: widget.toggleMode,
