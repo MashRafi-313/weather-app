@@ -29,6 +29,9 @@ class AppBody extends StatefulWidget {
 class _AppBodyState extends State<AppBody> {
   late int currentIndex;
 
+  Stream<int> _loadStreamPrevIndex() async*{
+     yield await _loadPrevIndex();
+  }
 
   // @override
   // void initState()  {
@@ -53,8 +56,9 @@ class _AppBodyState extends State<AppBody> {
 
   @override
   Widget build(BuildContext context) {
-   return  FutureBuilder(
-      future: _loadPrevIndex(),
+   return  StreamBuilder(
+      //future: _loadPrevIndex(),
+       stream: _loadStreamPrevIndex(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(

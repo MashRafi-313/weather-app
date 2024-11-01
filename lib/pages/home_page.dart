@@ -21,8 +21,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  Stream<WeatherDataInfo> _loadDataFromStream() async*{
+    yield await _loadDataFromSharedPreferences();
+  }
 
-  Future<WeatherDataInfo> loadDataFromSharedPreferences() async {
+  Future<WeatherDataInfo> _loadDataFromSharedPreferences() async {
     try {
       SharedPrefStorage prefs = SharedPrefStorage();
       final Map<String, dynamic>? jsonResponse =
@@ -46,8 +49,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<WeatherDataInfo>(
-        future: loadDataFromSharedPreferences(),
+      body: StreamBuilder<WeatherDataInfo>(
+        //future: loadDataFromSharedPreferences(),
+        stream: _loadDataFromStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
