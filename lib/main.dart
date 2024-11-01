@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warm_cloud/app_color/app_color.dart';
+import 'package:warm_cloud/data_storage/shared_preferences_key.dart';
 import 'package:warm_cloud/pages/home_page.dart';
-import 'package:warm_cloud/pages/search_page.dart';
+
 
 void main() {
   runApp(WeatherApp());
@@ -17,7 +18,6 @@ class WeatherApp extends StatefulWidget {
 
 class _WeatherAppState extends State<WeatherApp> {
   ThemeMode _themeMode = ThemeMode.light;
-
   @override
   void initState() {
     super.initState();
@@ -26,7 +26,7 @@ class _WeatherAppState extends State<WeatherApp> {
 
   Future<void> _loadThemePreference() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final isDarkMode = prefs.getBool('isDarkMode') ?? false;
+    final isDarkMode = prefs.getBool(KeyType.darkMode) ?? false;
     setState(() {
       _themeMode = isDarkMode ? ThemeMode.dark : ThemeMode.light;
     });
@@ -38,7 +38,7 @@ class _WeatherAppState extends State<WeatherApp> {
       _themeMode =
           _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     });
-    await prefs.setBool('isDarkMode', _themeMode == ThemeMode.dark);
+    await prefs.setBool(KeyType.darkMode, _themeMode == ThemeMode.dark);
   }
 
   @override
