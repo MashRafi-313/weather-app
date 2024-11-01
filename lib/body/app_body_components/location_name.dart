@@ -26,7 +26,6 @@ class LocationName extends StatelessWidget {
             child: Image.asset('assets/images/locationIndicator.png',
               color: AppColor.mineShaft(Theme.of(context).brightness),
             ),
-            // style: const TextStyle(fontSize: 21, textBaseline: TextBaseline.alphabetic)
             baseline: TextBaseline.alphabetic,
             alignment: PlaceholderAlignment.baseline,
             )

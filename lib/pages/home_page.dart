@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:warm_cloud/data_storage/my_shared_preferences.dart';
 import 'package:warm_cloud/model/weather_data_info.dart';
 
@@ -21,13 +21,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  Stream<WeatherDataInfo> _loadDataFromStream() async*{
+    yield await _loadDataFromSharedPreferences();
+  }
 
-  Future<WeatherDataInfo> loadDataFromSharedPreferences() async {
+  Future<WeatherDataInfo> _loadDataFromSharedPreferences() async {
     try {
       SharedPrefStorage prefs = SharedPrefStorage();
       final Map<String, dynamic>? jsonResponse =
           await prefs.getJsonObjectFromSharedPreferences();
-
       if(jsonResponse == null){
          await prefs.saveJsonToSharedPreferences();
         final Map<String,dynamic>? jsonResponse =
@@ -37,7 +39,6 @@ class _HomePageState extends State<HomePage> {
      else {
         return WeatherDataInfo.fromJson(jsonResponse);
       }
-
     } catch (e) {
       throw e.toString();
     }
@@ -46,8 +47,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<WeatherDataInfo>(
-        future: loadDataFromSharedPreferences(),
+      body: StreamBuilder<WeatherDataInfo>(
+        stream: _loadDataFromStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
