@@ -4,17 +4,14 @@ import 'package:warm_cloud/body/app_body_components/app_content.dart';
 import 'package:warm_cloud/data_storage/shared_preferences_key.dart';
 import 'package:warm_cloud/model/weather_data_info.dart';
 
-
 class AppBody extends StatefulWidget {
   final WeatherDataInfo? weatherDataInfo;
   final int defaultIndex;
-  final Function() toggleMode;
 
   const AppBody({
     super.key,
     required this.weatherDataInfo,
     this.defaultIndex = 1,
-    required this.toggleMode,
   });
 
   @override
@@ -63,7 +60,6 @@ class _AppBodyState extends State<AppBody> {
               int currentIndex = snapshot.data!;
               return AppContent(
                 weatherDataInfo: widget.weatherDataInfo,
-                toggleMode: widget.toggleMode,
                 updateIndex: updateIndex,
                 currentIndex: currentIndex,
               );

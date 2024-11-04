@@ -13,13 +13,12 @@ import 'location_name.dart';
 
 class AppContent extends StatelessWidget {
   final WeatherDataInfo? weatherDataInfo;
-  final Function() toggleMode;
+
   final Function(int) updateIndex;
   final currentIndex;
 
   AppContent(
       {super.key,
-      required this.toggleMode,
       required this.updateIndex,
       this.currentIndex,
       this.weatherDataInfo});
@@ -35,7 +34,7 @@ class AppContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SwitchMode(toggleMode: toggleMode),
+              SwitchMode(),
               SearchBox(
                 weatherDataInfo: weatherDataInfo,
                 updateIndex: updateIndex,

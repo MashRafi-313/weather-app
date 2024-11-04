@@ -8,20 +8,14 @@ import 'package:warm_cloud/model/weather_data_info.dart';
 import '../body/app_body.dart';
 
 class HomePage extends StatefulWidget {
-  final Function() toggleMode;
-
-  const HomePage({
-    super.key,
-    required this.toggleMode,
-  });
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
-  Stream<WeatherDataInfo> _loadDataFromStream() async*{
+  Stream<WeatherDataInfo> _loadDataFromStream() async* {
     yield await _loadDataFromSharedPreferences();
   }
 
@@ -30,13 +24,12 @@ class _HomePageState extends State<HomePage> {
       SharedPrefStorage prefs = SharedPrefStorage();
       final Map<String, dynamic>? jsonResponse =
           await prefs.getJsonObjectFromSharedPreferences();
-      if(jsonResponse == null){
-         await prefs.saveJsonToSharedPreferences();
-        final Map<String,dynamic>? jsonResponse =
-         await prefs.getJsonObjectFromSharedPreferences();
+      if (jsonResponse == null) {
+        await prefs.saveJsonToSharedPreferences();
+        final Map<String, dynamic>? jsonResponse =
+            await prefs.getJsonObjectFromSharedPreferences();
         return WeatherDataInfo.fromJson(jsonResponse!);
-      }
-     else {
+      } else {
         return WeatherDataInfo.fromJson(jsonResponse);
       }
     } catch (e) {
@@ -63,8 +56,8 @@ class _HomePageState extends State<HomePage> {
           } else if (snapshot.hasData) {
             WeatherDataInfo? weatherDataInfo = snapshot.data!;
             return AppBody(
-                weatherDataInfo: weatherDataInfo,
-                toggleMode: widget.toggleMode);
+              weatherDataInfo: weatherDataInfo,
+            );
           } else {
             return const Center(
               child: Text(
