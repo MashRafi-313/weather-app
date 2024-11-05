@@ -1,15 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../app_color/app_color.dart';
+import '../../provider/index_provider.dart';
+import '../../provider/weather_data_info_provider.dart';
 
 class LocationName extends StatelessWidget {
-  final String? location;
-
-  const LocationName({super.key, required this.location});
+  const LocationName({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final indexProvider = Provider.of<IndexProvider>(context);
+    final weatherDataInfoProvider = Provider.of<WeatherDataInfoProvider>(context);
+    String location = weatherDataInfoProvider
+        .weatherDataInfo.weatherData![indexProvider.index].location!;
     return RichText(
       text: TextSpan(children: [
         TextSpan(
@@ -21,7 +24,7 @@ class LocationName extends StatelessWidget {
             textBaseline:  TextBaseline.alphabetic
           ),
         ),
-        TextSpan(text: "  "),
+        const TextSpan(text: "  "),
         WidgetSpan(
             child: Image.asset('assets/images/locationIndicator.png',
               color: AppColor.mineShaft(Theme.of(context).brightness),

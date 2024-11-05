@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import 'package:warm_cloud/data_storage/my_shared_preferences.dart';
 import 'package:warm_cloud/model/weather_data_info.dart';
-
+import 'package:warm_cloud/provider/weather_data_info_provider.dart';
+import 'package:provider/provider.dart';
 import '../body/app_body.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,33 +13,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Stream<WeatherDataInfo> _loadDataFromStream() async* {
-    yield await _loadDataFromSharedPreferences();
+  late Future<WeatherDataInfo> _weatherDataInfo;
+  @override
+  void initState() {
+    super.initState();
+    _weatherDataInfo = _loadDataFromSharedPreferences();
   }
 
   Future<WeatherDataInfo> _loadDataFromSharedPreferences() async {
+    SharedPrefStorage prefs = SharedPrefStorage();
     try {
-      SharedPrefStorage prefs = SharedPrefStorage();
       final Map<String, dynamic>? jsonResponse =
-          await prefs.getJsonObjectFromSharedPreferences();
+      await prefs.getJsonObjectFromSharedPreferences();
       if (jsonResponse == null) {
         await prefs.saveJsonToSharedPreferences();
-        final Map<String, dynamic>? jsonResponse =
-            await prefs.getJsonObjectFromSharedPreferences();
-        return WeatherDataInfo.fromJson(jsonResponse!);
+        final newResponse = await prefs.getJsonObjectFromSharedPreferences();
+        return WeatherDataInfo.fromJson(newResponse!);
       } else {
         return WeatherDataInfo.fromJson(jsonResponse);
       }
     } catch (e) {
-      throw e.toString();
+      debugPrint("Error loading weather data: $e");
+      rethrow;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder<WeatherDataInfo>(
-        stream: _loadDataFromStream(),
+      body: FutureBuilder<WeatherDataInfo>(
+        future: _weatherDataInfo,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -50,14 +51,15 @@ class _HomePageState extends State<HomePage> {
           } else if (snapshot.hasError) {
             return Center(
               child: Text(
-                'Error:${snapshot.error}',
+                'Error: ${snapshot.error}',
               ),
             );
           } else if (snapshot.hasData) {
-            WeatherDataInfo? weatherDataInfo = snapshot.data!;
-            return AppBody(
-              weatherDataInfo: weatherDataInfo,
-            );
+            // WidgetsBinding.instance.addPostFrameCallback((_){
+            //   Provider.of<WeatherDataInfoProvider>(context).updateWeatherDataInfo(snapshot.data!);
+            // });
+            WeatherDataInfo weatherDataInfo = snapshot.data!;
+            return AppBody(weatherDataInfo: weatherDataInfo);
           } else {
             return const Center(
               child: Text(

@@ -1,21 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:warm_cloud/app_color/app_color.dart';
 import 'package:warm_cloud/body/app_body_components/SunStatus/day_light.dart';
 import 'package:warm_cloud/custom_class/heading_value_divider.dart';
-
+import 'package:provider/provider.dart';
+import '../../provider/index_provider.dart';
+import '../../provider/weather_data_info_provider.dart';
 import 'SunStatus/heading.dart';
 import 'SunStatus/horizontal_divider.dart';
 
 class SunStatus extends StatelessWidget {
-  final String? sunrise;
-  final String? sunset;
-
   const SunStatus({
     super.key,
-    required this.sunrise,
-    required this.sunset,
   });
 
   Duration _findTimeDifference(String? timeA, String? timeB) {
@@ -51,6 +47,15 @@ class SunStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final indexProvider = Provider.of<IndexProvider>(context);
+    final weatherDataInfoProvider =
+        Provider.of<WeatherDataInfoProvider>(context);
+    String sunrise = weatherDataInfoProvider
+        .weatherDataInfo.weatherData![indexProvider.index].sunrise!;
+    String sunset = weatherDataInfoProvider
+        .weatherDataInfo.weatherData![indexProvider.index].sunset!;
+
+
     Duration lengthOfDay = _findTimeDifference(sunrise, sunset);
     int lengthOfDayInHours = lengthOfDay.inHours;
     int lengthOfDayInMinutes = lengthOfDay.inMinutes % 60;
@@ -90,20 +95,22 @@ class SunStatus extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Spacer(),
+              const Spacer(),
               HeadingValueDivider(
                 heading: "Sunrise",
                 value: sunrise,
               ),
-
-              Spacer(),
+              const Spacer(),
               HeadingValueDivider(
                 heading: "Sunset",
                 value: sunset,
               ),
-              SizedBox(width: 20,),
+              const SizedBox(
+                width: 20,
+              ),
               Padding(
-                padding: const EdgeInsets.only(bottom:1,top: 75,left: 5,right: 5),
+                padding: const EdgeInsets.only(
+                    bottom: 1, top: 75, left: 5, right: 5),
                 child: Text(
                   "Horizon",
                   style: TextStyle(

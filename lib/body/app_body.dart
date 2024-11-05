@@ -3,24 +3,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warm_cloud/body/app_body_components/app_content.dart';
 import 'package:warm_cloud/data_storage/shared_preferences_key.dart';
 import 'package:warm_cloud/model/weather_data_info.dart';
+import 'package:provider/provider.dart';
+import 'package:warm_cloud/provider/index_provider.dart';
+import 'package:warm_cloud/provider/weather_data_info_provider.dart';
 
 class AppBody extends StatefulWidget {
-  final WeatherDataInfo? weatherDataInfo;
-  final int defaultIndex;
-
+  final WeatherDataInfo weatherDataInfo;
   const AppBody({
-    super.key,
-    required this.weatherDataInfo,
-    this.defaultIndex = 1,
+    super.key, required this.weatherDataInfo,
   });
 
   @override
   State<AppBody> createState() => _AppBodyState();
 }
 
-class _AppBodyState extends State<AppBody> {
-  late int currentIndex;
 
+class _AppBodyState extends State<AppBody> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
   Stream<int> _loadStreamPrevIndex() async* {
     yield await _loadPrevIndex();
   }
@@ -28,16 +31,8 @@ class _AppBodyState extends State<AppBody> {
   Future<int> _loadPrevIndex() async {
     int presentIndex;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    presentIndex = prefs.getInt(KeyType.currentIndex) ?? widget.defaultIndex;
+    presentIndex = prefs.getInt(KeyType.currentIndex) ?? 1;
     return presentIndex;
-  }
-
-  void updateIndex(int index) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      currentIndex = index;
-    });
-    prefs.setInt(KeyType.currentIndex, currentIndex);
   }
 
   @override
@@ -58,11 +53,7 @@ class _AppBodyState extends State<AppBody> {
               );
             } else if (snapshot.hasData) {
               int currentIndex = snapshot.data!;
-              return AppContent(
-                weatherDataInfo: widget.weatherDataInfo,
-                updateIndex: updateIndex,
-                currentIndex: currentIndex,
-              );
+              return AppContent(weatherDataInfo: widget.weatherDataInfo);
             } else {
               return const Center(
                 child: Text("No weather data available"),
