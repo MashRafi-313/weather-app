@@ -32,14 +32,6 @@ class _AppBodyState extends State<AppBody> {
     return presentIndex;
   }
 
-  void updateIndex(int index) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      currentIndex = index;
-    });
-    prefs.setInt(KeyType.currentIndex, currentIndex);
-  }
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<int>(
@@ -60,7 +52,6 @@ class _AppBodyState extends State<AppBody> {
               int currentIndex = snapshot.data!;
               return AppContent(
                 weatherDataInfo: widget.weatherDataInfo,
-                updateIndex: updateIndex,
                 currentIndex: currentIndex,
               );
             } else {

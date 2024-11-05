@@ -4,16 +4,16 @@ import 'package:warm_cloud/model/weather_data_info.dart';
 
 import '../body/search_body.dart';
 
-class SearchPage extends StatelessWidget{
-  final void Function(int) updateIndex;
-   SearchPage({super.key, required this.weatherDataInfo, required this.updateIndex});
+class SearchPage extends StatelessWidget {
+  SearchPage({super.key, required this.weatherDataInfo});
+
   final WeatherDataInfo? weatherDataInfo;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:SearchBody(weatherDataInfo: weatherDataInfo, updateIndex: updateIndex)
-    );
+        body: SearchBody(
+      weatherDataInfo: weatherDataInfo,
+    ));
   }
-
 }

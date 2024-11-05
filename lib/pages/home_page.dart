@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import 'package:warm_cloud/data_storage/my_shared_preferences.dart';
 import 'package:warm_cloud/model/weather_data_info.dart';
-
 import '../body/app_body.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,10 +32,6 @@ class _HomePageState extends State<HomePage> {
       throw e.toString();
     }
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {

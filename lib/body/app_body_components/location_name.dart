@@ -15,20 +15,20 @@ class LocationName extends StatelessWidget {
         TextSpan(
           text: location,
           style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.w600,
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
               color: AppColor.mineShaft(Theme.of(context).brightness),
-            textBaseline:  TextBaseline.alphabetic
-          ),
+              textBaseline: TextBaseline.alphabetic),
         ),
-        TextSpan(text: "  "),
+        const TextSpan(text: "  "),
         WidgetSpan(
-            child: Image.asset('assets/images/locationIndicator.png',
-              color: AppColor.mineShaft(Theme.of(context).brightness),
-            ),
-            baseline: TextBaseline.alphabetic,
-            alignment: PlaceholderAlignment.baseline,
-            )
+          child: Image.asset(
+            'assets/images/locationIndicator.png',
+            color: AppColor.mineShaft(Theme.of(context).brightness),
+          ),
+          baseline: TextBaseline.alphabetic,
+          alignment: PlaceholderAlignment.baseline,
+        )
       ]),
     );
   }

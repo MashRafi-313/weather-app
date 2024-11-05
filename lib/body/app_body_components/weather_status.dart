@@ -1,19 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:warm_cloud/app_color/app_color.dart';
 import 'package:warm_cloud/custom_class/heading_value.dart';
 import 'package:intl/intl.dart';
 
 class WeatherStatus extends StatelessWidget {
-  final int? uv_index;
-  final String? rain_percentage;
-  final String? air_quality;
+  final int? uvIndex;
+  final String? rainPercentage;
+  final String? airQuality;
 
   WeatherStatus(
       {super.key,
-      required this.uv_index,
-      required this.rain_percentage,
-      required this.air_quality});
+      required this.uvIndex,
+      required this.rainPercentage,
+      required this.airQuality});
 
   String formattedTime = DateFormat('hh:mm a').format(DateTime.now());
 
@@ -33,15 +32,13 @@ class WeatherStatus extends StatelessWidget {
             child: HeadingValue(heading: "TIME", value: formattedTime),
           ),
           Expanded(
-            child: HeadingValue(heading: "UV", value: uv_index.toString()),
+            child: HeadingValue(heading: "UV", value: uvIndex.toString()),
           ),
-
           Expanded(
-            child: HeadingValue(heading: "%RAIN", value: rain_percentage),
+            child: HeadingValue(heading: "%RAIN", value: rainPercentage),
           ),
-          //
           Expanded(
-            child: HeadingValue(heading: "AQ", value: air_quality),
+            child: HeadingValue(heading: "AQ", value: airQuality),
           ),
         ],
       ),

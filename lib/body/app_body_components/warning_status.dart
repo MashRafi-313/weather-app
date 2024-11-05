@@ -20,9 +20,8 @@ class WarningStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-
-      margin: EdgeInsets.symmetric(horizontal: 20.0),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: AppColor.hintOfRed(Theme.of(context).brightness),
@@ -36,7 +35,6 @@ class WarningStatus extends StatelessWidget {
             rain_percentage: rain_percentage,
             weather_emoji: weather_emoji,
           ),
-          //const SizedBox(height: 20,),
           WarningTitle(title: warning_title),
         ],
       ),

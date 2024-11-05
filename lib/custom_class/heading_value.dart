@@ -24,9 +24,10 @@ class HeadingValue extends StatelessWidget {
         Text(
           value!,
           style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-              color: AppColor.dustyGray(Theme.of(context).brightness),),
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+            color: AppColor.dustyGray(Theme.of(context).brightness),
+          ),
         ),
       ],
     );

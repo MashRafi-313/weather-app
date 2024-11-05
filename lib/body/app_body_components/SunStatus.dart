@@ -90,20 +90,22 @@ class SunStatus extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Spacer(),
+              const Spacer(),
               HeadingValueDivider(
                 heading: "Sunrise",
                 value: sunrise,
               ),
-
-              Spacer(),
+              const Spacer(),
               HeadingValueDivider(
                 heading: "Sunset",
                 value: sunset,
               ),
-              SizedBox(width: 20,),
+              const SizedBox(
+                width: 20,
+              ),
               Padding(
-                padding: const EdgeInsets.only(bottom:1,top: 75,left: 5,right: 5),
+                padding: const EdgeInsets.only(
+                    bottom: 1, top: 75, left: 5, right: 5),
                 child: Text(
                   "Horizon",
                   style: TextStyle(

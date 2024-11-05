@@ -22,7 +22,7 @@ class WeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) => AnimatedSwitcher(
-       duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
         child: MaterialApp(
           key: ValueKey(themeProvider.themeMode),
           debugShowCheckedModeBanner: false,

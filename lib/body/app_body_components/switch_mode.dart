@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 class SwitchMode extends StatelessWidget {
   const SwitchMode({super.key});
 
+  @override
   Widget build(BuildContext context) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
