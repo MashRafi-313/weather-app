@@ -21,16 +21,20 @@ class WeatherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(
-      builder: (context, themeProvider, child) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            brightness: Brightness.light,
-            scaffoldBackgroundColor:
-                AppColor.white(Theme.of(context).brightness),
-            fontFamily: 'Poppins'),
-        darkTheme: ThemeData.dark(),
-        themeMode: themeProvider.themeMode,
-        home: const HomePage(),
+      builder: (context, themeProvider, child) => AnimatedSwitcher(
+       duration: const Duration(seconds: 2),
+        child: MaterialApp(
+          key: ValueKey(themeProvider.themeMode),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+              brightness: Brightness.light,
+              scaffoldBackgroundColor:
+                  AppColor.white(Theme.of(context).brightness),
+              fontFamily: 'Poppins'),
+          darkTheme: ThemeData.dark(),
+          themeMode: themeProvider.themeMode,
+          home: const HomePage(),
+        ),
       ),
     );
   }

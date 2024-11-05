@@ -4,8 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warm_cloud/app_color/app_color.dart';
 import 'package:warm_cloud/body/search_body_components/latest_searched.dart';
 import 'package:warm_cloud/body/search_body_components/suggested_list.dart';
+import 'package:warm_cloud/data_storage/shared_preferences_key.dart';
 import 'package:warm_cloud/model/weather_data.dart';
 import 'package:warm_cloud/model/weather_data_info.dart';
+
+import '../pages/home_page.dart';
 
 class SearchBody extends StatefulWidget {
   final WeatherDataInfo? weatherDataInfo;
@@ -122,8 +125,7 @@ class _SearchBodyState extends State<SearchBody> {
                 return GestureDetector(
                   onTap: () async {
                     int index = findIndex(weather.location);
-                    widget.updateIndex(index);
-
+                   // widget.updateIndex(index);
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     List<String> updateLocations =
@@ -137,6 +139,7 @@ class _SearchBodyState extends State<SearchBody> {
                       }
                       await prefs.setStringList(
                           'latestLocations', updateLocations);
+                      await prefs.setInt(KeyType.currentIndex, index);
                       setState(() {
                         latestLocations = updateLocations;
                       });
@@ -144,6 +147,7 @@ class _SearchBodyState extends State<SearchBody> {
 
                     _searchFocusNode.unfocus();
                     Navigator.pop(context);
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => HomePage(),));
                   },
                   child: SuggestedList(
                       location: weather.location,
