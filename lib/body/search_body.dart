@@ -1,18 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warm_cloud/app_color/app_color.dart';
 import 'package:warm_cloud/body/search_body_components/latest_searched.dart';
 import 'package:warm_cloud/body/search_body_components/suggested_list.dart';
+import 'package:warm_cloud/data_storage/shared_preferences_key.dart';
 import 'package:warm_cloud/model/weather_data.dart';
 import 'package:warm_cloud/model/weather_data_info.dart';
+import '../pages/home_page.dart';
 
 class SearchBody extends StatefulWidget {
   final WeatherDataInfo? weatherDataInfo;
-  final void Function(int) updateIndex;
 
-  SearchBody(
-      {super.key, required this.weatherDataInfo, required this.updateIndex});
+  SearchBody({super.key, required this.weatherDataInfo});
 
   @override
   State<SearchBody> createState() => _SearchBodyState();
@@ -80,7 +79,7 @@ class _SearchBodyState extends State<SearchBody> {
         children: [
           Container(
             margin: const EdgeInsets.only(
-                left: 20.0, right: 20, top: 20,bottom: 2),
+                left: 20.0, right: 20, top: 20, bottom: 2),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
@@ -122,12 +121,10 @@ class _SearchBodyState extends State<SearchBody> {
                 return GestureDetector(
                   onTap: () async {
                     int index = findIndex(weather.location);
-                    widget.updateIndex(index);
-
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     List<String> updateLocations =
-                        prefs.getStringList('latestLocations') ?? [];
+                        prefs.getStringList(KeyType.latestLocations) ?? [];
                     if (weather.location != null &&
                         (updateLocations.isEmpty ||
                             updateLocations.first != weather.location)) {
@@ -136,7 +133,8 @@ class _SearchBodyState extends State<SearchBody> {
                         updateLocations = updateLocations.sublist(0, 3);
                       }
                       await prefs.setStringList(
-                          'latestLocations', updateLocations);
+                          KeyType.latestLocations, updateLocations);
+                      await prefs.setInt(KeyType.currentIndex, index);
                       setState(() {
                         latestLocations = updateLocations;
                       });
@@ -144,6 +142,11 @@ class _SearchBodyState extends State<SearchBody> {
 
                     _searchFocusNode.unfocus();
                     Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(),
+                        ));
                   },
                   child: SuggestedList(
                       location: weather.location,

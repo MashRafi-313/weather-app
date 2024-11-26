@@ -4,7 +4,8 @@ import 'package:warm_cloud/app_color/app_color.dart';
 
 class WarningTitle extends StatelessWidget {
   final String? title;
-   WarningTitle({super.key,required this.title});
+
+  const WarningTitle({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -17,5 +18,4 @@ class WarningTitle extends StatelessWidget {
       ),
     );
   }
-
 }

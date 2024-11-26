@@ -31,11 +31,7 @@ class HeadingValueDivider extends StatelessWidget {
             color: AppColor.dustyGray(Theme.of(context).brightness),
           ),
         ),
-        //VerticalDivider()
-        SizedBox(
-          height: 60,
-          child: Verticaldivider()
-        ),
+        SizedBox(height: 60, child: Verticaldivider()),
       ],
     );
   }

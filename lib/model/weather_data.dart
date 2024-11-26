@@ -14,15 +14,15 @@ class WeatherData {
 
   WeatherData(
       {this.location,
-        this.weatherEmoji,
-        this.temperature,
-        this.uvIndex,
-        this.rainPercentage,
-        this.airQuality,
-        this.sunrise,
-        this.sunset,
-        this.dayLength,
-        this.warnings});
+      this.weatherEmoji,
+      this.temperature,
+      this.uvIndex,
+      this.rainPercentage,
+      this.airQuality,
+      this.sunrise,
+      this.sunset,
+      this.dayLength,
+      this.warnings});
 
   WeatherData.fromJson(Map<String, dynamic> json) {
     location = json['location'];
@@ -34,9 +34,8 @@ class WeatherData {
     sunrise = json['sunrise'];
     sunset = json['sunset'];
     dayLength = json['day_length'];
-    warnings = json['warnings'] != null
-        ? Warnings.fromJson(json['warnings'])
-        : null;
+    warnings =
+        json['warnings'] != null ? Warnings.fromJson(json['warnings']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -56,4 +55,3 @@ class WeatherData {
     return data;
   }
 }
-

@@ -11,7 +11,10 @@ class WarningInfo extends StatelessWidget {
   final String? expected_time;
 
   const WarningInfo(
-      {super.key, required this.weather_emoji, required this.rain_percentage, required this.expected_time});
+      {super.key,
+      required this.weather_emoji,
+      required this.rain_percentage,
+      required this.expected_time});
 
   @override
   Widget build(BuildContext context) {
@@ -19,39 +22,47 @@ class WarningInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //leftside
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RichText(text: TextSpan(
-                children: [
-                  WidgetSpan(
-                      child: Image.asset('assets/images/warningHazard.png')),
-                  const TextSpan(text: " "),
-                  TextSpan(text: "WARNING",
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: AppColor.gold(Theme.of(context).brightness)
-                      )
-                  ),
-                ]
-            )),
-            const SizedBox(height: 20,),
+            RichText(
+                text: TextSpan(children: [
+              WidgetSpan(child: Image.asset('assets/images/warningHazard.png')),
+              const TextSpan(text: " "),
+              TextSpan(
+                  text: "WARNING",
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: AppColor.gold(Theme.of(context).brightness))),
+            ])),
+            const SizedBox(
+              height: 20,
+            ),
             Row(
               children: [
-                HeadingValue(heading: "%RAIN", value: rain_percentage,),
-                const SizedBox(width: 25,),
-                HeadingValue(heading: "EXPECTED_TIME", value: expected_time!.split(' - ')[0],),
+                HeadingValue(
+                  heading: "%RAIN",
+                  value: rain_percentage,
+                ),
+                const SizedBox(
+                  width: 25,
+                ),
+                HeadingValue(
+                  heading: "EXPECTED_TIME",
+                  value: expected_time!.split(' - ')[0],
+                ),
               ],
             )
           ],
         ),
-        //rightside
-        const SizedBox(width: 50,),
-        WarningImage(weather_emoji: weather_emoji,)
+        const SizedBox(
+          width: 50,
+        ),
+        WarningImage(
+          weather_emoji: weather_emoji,
+        )
       ],
     );
   }
-
 }

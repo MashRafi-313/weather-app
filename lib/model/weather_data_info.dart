@@ -15,11 +15,10 @@ class WeatherDataInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (weatherData != null) {
       data['weatherData'] = weatherData!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
-

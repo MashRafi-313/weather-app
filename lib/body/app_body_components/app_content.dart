@@ -13,16 +13,9 @@ import 'location_name.dart';
 
 class AppContent extends StatelessWidget {
   final WeatherDataInfo? weatherDataInfo;
-  final Function() toggleMode;
-  final Function(int) updateIndex;
-  final currentIndex;
+  final int currentIndex;
 
-  AppContent(
-      {super.key,
-      required this.toggleMode,
-      required this.updateIndex,
-      this.currentIndex,
-      this.weatherDataInfo});
+  const AppContent({super.key, required this.currentIndex, this.weatherDataInfo});
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +28,9 @@ class AppContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SwitchMode(toggleMode: toggleMode),
+              const SwitchMode(),
               SearchBox(
                 weatherDataInfo: weatherDataInfo,
-                updateIndex: updateIndex,
               ),
               const SizedBox(
                 height: 5,
@@ -67,9 +59,9 @@ class AppContent extends StatelessWidget {
                 height: 10,
               ),
               WeatherStatus(
-                  uv_index: weatherData.uvIndex,
-                  rain_percentage: weatherData.rainPercentage,
-                  air_quality: weatherData.airQuality),
+                  uvIndex: weatherData.uvIndex,
+                  rainPercentage: weatherData.rainPercentage,
+                  airQuality: weatherData.airQuality),
               const SizedBox(
                 height: 10,
               ),
