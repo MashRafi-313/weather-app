@@ -1,5 +1,6 @@
-import '../../model/weather_data_info.dart';
+import 'package:dartz/dartz.dart';
+import 'package:warm_cloud/Home/data/model/weather_info_model.dart';
 
 abstract class WeatherRepository {
-  Future<WeatherDataInfo> getWeatherDataInfo();
+  Future<Either<String, WeatherDataInfo>> getWeatherDataInfo();
 }

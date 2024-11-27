@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:warm_cloud/Home/presentation/screens/home_page.dart';
+import 'package:warm_cloud/Home/presentation/screens/home_screen.dart';
 
 import 'Home/presentation/providers/theme_provider.dart';
 import 'core/app_color/app_color.dart';
