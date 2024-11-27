@@ -17,9 +17,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          WeatherBloc(WeatherRepositoryLocal())..add(LoadWeatherDataEvent()),
+          WeatherCubit(WeatherRepositoryLocal(WeatherDataSourceLocal()))
+            ..onLoadWeatherData(),
       child: Scaffold(
-        body: BlocBuilder<WeatherBloc, WeatherDataState>(
+        body: BlocBuilder<WeatherCubit, WeatherDataState>(
           builder: (context, state) {
             switch (state) {
               case WeatherDataInitial():

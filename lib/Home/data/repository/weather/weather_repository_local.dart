@@ -1,30 +1,30 @@
+import 'package:dartz/dartz.dart';
+import 'package:warm_cloud/Home/data/datasource/weather/weather_data_source_local.dart';
+import 'package:warm_cloud/Home/data/model/weather_info_model.dart';
 import 'package:warm_cloud/Home/data/repository/weather/weather_repository.dart';
 
-import '../../model/weather_data_info.dart';
-import '../../services/local/local_data_service.dart';
 
 class WeatherRepositoryLocal extends WeatherRepository {
-  Map<String, dynamic>? jsonResponse;
-  static WeatherDataInfo weatherDataInfo = WeatherDataInfo();
+  final WeatherDataSourceLocal weatherDataSourceLocal;
 
+  WeatherRepositoryLocal(this.weatherDataSourceLocal);
   @override
-  Future<WeatherDataInfo> getWeatherDataInfo() async {
+  Future<Either<String, WeatherDataInfo>> getWeatherDataInfo() async {
     try {
-      LocalDataProvider localDataProvider = LocalDataProvider();
-      jsonResponse =
-          await localDataProvider.getJsonObjectFromSharedPreferences();
+      Map<String, dynamic>? jsonResponse =
+          await weatherDataSourceLocal.getData();
       if (jsonResponse == null) {
-        await localDataProvider.saveJsonToSharedPreferences();
-        jsonResponse =
-            await localDataProvider.getJsonObjectFromSharedPreferences();
-        weatherDataInfo = WeatherDataInfo.fromJson(jsonResponse!);
-        return weatherDataInfo;
+        await weatherDataSourceLocal.saveData();
+        jsonResponse = await weatherDataSourceLocal.getData();
+      }
+      if (jsonResponse != null) {
+        final weatherDataInfo = WeatherDataInfo.fromJson(jsonResponse!);
+        return Right(weatherDataInfo);
       } else {
-        weatherDataInfo = WeatherDataInfo.fromJson(jsonResponse!);
-        return weatherDataInfo;
+        return const Left("Weather data is currently unavailable");
       }
     } catch (e) {
-      throw e.toString();
+      return Left("Error occurred: ${e.toString()}");
     }
   }
 }
