@@ -25,7 +25,7 @@ class _WeatherAppState extends State<WeatherApp> {
               fontFamily: 'Poppins'),
           darkTheme: ThemeData.dark(),
           themeMode: themeProvider.themeMode,
-          home: const HomePage()),
+          home: const HomeScreen()),
     );
   }
 }

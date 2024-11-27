@@ -10,11 +10,6 @@ import 'package:warm_cloud/core/app_color/app_color.dart';
 import 'package:warm_cloud/core/styles/text_styles.dart';
 import 'package:warm_cloud/core/utility/shared_preferences_key.dart';
 
-import '../../../../core/app_color/app_color.dart';
-import '../../../data/model/weather_data.dart';
-import '../../../data/model/weather_data_info.dart';
-import '../../../data/services/local/shared_preferences_key.dart';
-import '../../screens/home_page.dart';
 
 class SearchPage extends StatefulWidget {
   final WeatherDataInfo? weatherDataInfo;
