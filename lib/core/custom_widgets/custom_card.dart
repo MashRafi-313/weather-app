@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../app_color/app_color.dart';
+import 'package:warm_cloud/core/app_color/app_color.dart';
 
 class CustomCard extends StatelessWidget {
   final Widget child;

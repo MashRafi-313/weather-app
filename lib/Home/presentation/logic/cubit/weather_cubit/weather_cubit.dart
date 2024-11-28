@@ -12,7 +12,7 @@ class WeatherCubit extends Cubit<WeatherDataState> {
   WeatherCubit(this.weatherRepository) : super(WeatherDataInitial());
   final WeatherRepository weatherRepository;
 
-  Future<void> onLoadWeatherData() async {
+  Future<void> loadWeatherData() async {
     emit(WeatherDataLoading());
     final Either<String, WeatherDataInfo> result =
         await weatherRepository.getWeatherDataInfo();

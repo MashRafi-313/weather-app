@@ -4,8 +4,7 @@ import 'package:warm_cloud/Home/presentation/widgets/home_screen/home_page/weath
 import 'package:warm_cloud/Home/presentation/widgets/home_screen/home_page/weather_app_content/sun_status/sun_status_widgets/horizontal_divider.dart';
 import 'package:warm_cloud/Home/presentation/widgets/home_screen/home_page/weather_app_content/sun_status/sun_status_widgets/sun_status_heading.dart';
 import 'package:warm_cloud/Home/presentation/widgets/home_screen/home_page/weather_app_content/sun_status/sun_status_widgets/sunrise_sunset_divider.dart';
-import 'package:warm_cloud/core/CustomWidgets/custom_card.dart';
-
+import 'package:warm_cloud/core/custom_widgets/custom_card.dart';
 
 class SunStatus extends StatelessWidget {
   final String? sunrise;

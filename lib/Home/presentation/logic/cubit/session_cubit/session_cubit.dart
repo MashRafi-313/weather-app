@@ -1,15 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:warm_cloud/Home/data/repository/latest_session/latest_session_repository.dart';
+import 'package:warm_cloud/Home/data/repository/latest_session/last_session_repository.dart';
 
 part 'session_state.dart';
 
 class LatestSessionCubit extends Cubit<LatestSessionState> {
   LatestSessionCubit(this.latestSessionRepository)
       : super(LatestSessionInitial());
-  final LatestSessionRepository latestSessionRepository;
+  final LastSessionRepository latestSessionRepository;
 
-  Future<void> onLoadLatestSession() async {
+  Future<void> loadLatestSession() async {
     emit(LatestSessionLoading());
     try {
       final int latestSessionData =

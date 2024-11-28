@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:warm_cloud/Home/presentation/widgets/home_screen/home_page/weather_app_content/warning_status/warning_status_widgets/warning_image.dart';
-import 'package:warm_cloud/core/CustomWidgets/title_subtitle.dart';
-import 'package:warm_cloud/core/CustomWidgets/warning_hazard.dart';
+import 'package:warm_cloud/core/custom_widgets/title_subtitle.dart';
+import 'package:warm_cloud/core/custom_widgets/warning_hazard.dart';
 
 class WarningInfo extends StatelessWidget {
   final String? weatherEmoji;

@@ -5,8 +5,8 @@ import 'package:warm_cloud/Home/data/model/weather_model.dart';
 import 'package:warm_cloud/Home/presentation/screens/home_screen.dart';
 import 'package:warm_cloud/Home/presentation/widgets/search_screen/search_page/latest_searched_locations.dart';
 import 'package:warm_cloud/Home/presentation/widgets/search_screen/search_page/suggested_list.dart';
-import 'package:warm_cloud/core/CustomWidgets/custom_card.dart';
 import 'package:warm_cloud/core/app_color/app_color.dart';
+import 'package:warm_cloud/core/custom_widgets/custom_card.dart';
 import 'package:warm_cloud/core/styles/text_styles.dart';
 import 'package:warm_cloud/core/utility/shared_preferences_key.dart';
 

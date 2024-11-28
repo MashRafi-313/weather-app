@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:warm_cloud/Home/presentation/widgets/home_screen/home_page/weather_app_content/warning_status/warning_status_widgets/warning_info.dart';
 import 'package:warm_cloud/Home/presentation/widgets/home_screen/home_page/weather_app_content/warning_status/warning_status_widgets/warning_title.dart';
-import 'package:warm_cloud/core/CustomWidgets/custom_card.dart';
+import 'package:warm_cloud/core/custom_widgets/custom_card.dart';
 
 class WarningStatus extends StatelessWidget {
   final String? rainPercentage;

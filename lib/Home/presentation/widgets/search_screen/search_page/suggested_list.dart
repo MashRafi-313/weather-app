@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:warm_cloud/Home/presentation/widgets/search_screen/search_page/warning_status_info.dart';
-import 'package:warm_cloud/core/CustomWidgets/custom_card.dart';
-import 'package:warm_cloud/core/CustomWidgets/warning_hazard.dart';
 import 'package:warm_cloud/core/app_color/app_color.dart';
+import 'package:warm_cloud/core/custom_widgets/custom_card.dart';
+import 'package:warm_cloud/core/custom_widgets/warning_hazard.dart';
 import 'package:warm_cloud/core/styles/text_styles.dart';
 
 

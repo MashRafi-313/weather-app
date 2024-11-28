@@ -13,7 +13,7 @@ final class LatestSessionLoading extends LatestSessionState {
 }
 
 final class LatestSessionLoaded extends LatestSessionState {
-  final dynamic latestSession;
+  final int latestSession;
 
   LatestSessionLoaded(this.latestSession);
 

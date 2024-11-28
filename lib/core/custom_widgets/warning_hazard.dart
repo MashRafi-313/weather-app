@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:warm_cloud/core/app_color/app_color.dart';
 import 'package:warm_cloud/core/styles/text_styles.dart';
-
-import '../app_color/app_color.dart';
 
 class WarningHazard extends StatelessWidget {
   const WarningHazard({super.key});
