@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:warm_cloud/Home/presentation/controllers/theme_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:warm_cloud/Home/presentation/screens/home_page.dart';
+import 'package:warm_cloud/Home/presentation/screens/home_screen.dart';
 
+import 'Home/presentation/providers/theme_provider.dart';
 import 'core/app_color/app_color.dart';
 
 class WeatherApp extends StatefulWidget {
@@ -25,7 +25,7 @@ class _WeatherAppState extends State<WeatherApp> {
               fontFamily: 'Poppins'),
           darkTheme: ThemeData.dark(),
           themeMode: themeProvider.themeMode,
-          home: const HomePage()),
+          home: const HomeScreen()),
     );
   }
 }
